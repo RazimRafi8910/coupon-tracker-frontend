@@ -27,8 +27,8 @@ function Login() {
 
   const backendURL = String(import.meta.env.VITE_BACKEND_URL)
   const production = Number(import.meta.env.VITE_PRODUCTION)
-  
-  const api = production ? backendURL : 'http://localhost:3001'
+
+  const api = production == 1 ? backendURL : 'http://localhost:3001'
   console.log(api)
   const onsubmit = async (data) => {
     setIsLoading(true)
