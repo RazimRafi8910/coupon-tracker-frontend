@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import UserTable from '../components/UserTable';
 
 function CoordinatorHomePage() {
   return (
@@ -33,16 +34,16 @@ function CoordinatorHomePage() {
           </div>
         </div>
         <div className="row mx-3">
-          <Card>
+          <Card className='border border-dark'>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between fw-bold'>
                   Username
                 </div>
                 <div className=''>
                   <Form className='w-100 align-items-center'>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                      <Form.Control type="number" className='mt-3 w-100 px-4' placeholder="Enter the Coupon assigned Count" />
+                      <Form.Control type="number" className='mt-3 w-100 px-4 border-dark' placeholder="Enter the Coupon assigned Count" />
                     </Form.Group>
                     <div className='d-flex justify-content-end'>
                     <Button variant="outline-dark" className='px-3 ms-2' type="submit">Assign</Button>
@@ -53,8 +54,11 @@ function CoordinatorHomePage() {
             </ListGroup>
           </Card>
         </div>
-        <div className='row'>
-          
+        <div className='row mx-1 text-center mt-3'>
+          <h3>Assigned Users</h3>
+          <div>
+          <UserTable/>
+          </div>
         </div>
       </div>
     </>

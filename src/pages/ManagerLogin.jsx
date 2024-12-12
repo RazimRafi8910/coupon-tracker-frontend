@@ -12,6 +12,11 @@ const schema = yup.object().shape({
   password: yup.string().required()
 })
 
+const backendURL = String(import.meta.env.VITE_BACKEND_URL)
+const production = Number(import.meta.env.VITE_PRODUCTION)
+
+const api = production ? backendURL : 'http://localhost:3001'
+
 function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -29,7 +34,7 @@ function Login() {
     setIsLoading(true)
     try {
       console.log(data)
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch(`${api}/login`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
