@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import UserHomePage from "./pages/UserHomePage"
 import Login from "./pages/UserLogin"
@@ -41,32 +41,34 @@ function App() {
     //   getUser()
     // }
     // console.log(userState)
-    
-      // const username = localStorage.getItem('username');
-      // if (username) {
-      //   const user = {
-      //     username,
-      //     role: localStorage.getItem('role')
-      //   }
-      //   dispatch(userLogin(user));
-      // }
-    
+
+    // const username = localStorage.getItem('username');
+    // if (username) {
+    //   const user = {
+    //     username,
+    //     role: localStorage.getItem('role')
+    //   }
+    //   dispatch(userLogin(user));
+    // }
+
     console.log(userState)
   }, [])
   return (
     <>
       <div className="app" style={{ backgroundColor: '#dfdfdf' }}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={(<AuthProvider><UserHomePage /></AuthProvider>)} />
-          <Route path="/login" element={(<Login />)} />
-          <Route path="/manager" element={(<AuthProvider><ManagerHomePage /></AuthProvider>)} />
-          <Route path="/manager/coupons" element={<Coupons />} />
-          <Route path="/manager/students" element={<Students />} />
-          <Route path="/manager/student/:studentid" element={<StudentDetails />} />
-          <Route path="/coordinator" element={(<AuthProvider><CoordinatorHomePage /></AuthProvider>)} />
-        </Routes>
-        <ToastContainer />
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={(<AuthProvider><UserHomePage /></AuthProvider>)} />
+            <Route path="/login" element={(<Login />)} />
+            <Route path="/manager" element={(<AuthProvider><ManagerHomePage /></AuthProvider>)} />
+            <Route path="/manager/coupons" element={<Coupons />} />
+            <Route path="/manager/students" element={<Students />} />
+            <Route path="/manager/student/:studentid" element={<StudentDetails />} />
+            <Route path="/coordinator" element={(<AuthProvider><CoordinatorHomePage /></AuthProvider>)} />
+          </Routes>
+          <ToastContainer />
+        </Router>
       </div>
       {/* <div className='app ' style={{backgroundColor:'#e4eaff'}}>
         <div>
