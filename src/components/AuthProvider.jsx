@@ -1,22 +1,38 @@
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { userLogin } from "../slice/userSlice"
 
-function AuthProvider({ children, manager = false, coordinator = false, login=false}) {
+function AuthProvider({ children, manager = false, coordinator = false, login = false }) {
     const navigate = useNavigate()
     const userState = useSelector((state) => state.userReducer)
+    const dispatch = useDispatch()
 
-    console.log(userState)
     useEffect(() => {
 
-        if (userState.user == null) {
+        
+            const username = localStorage.getItem('username')
+            if (username) {
+                const user = {
+                    username,
+                    role: localStorage.getItem('role')
+                }
+                dispatch(userLogin(user))
+            }
+        console.log(userState)
+
+        if (!username) {
             return navigate('/login')
         }
-    
+
+        // if (userState.user == null) {
+        //     return navigate('/login')
+        // }
+
         if (manager && userState.user?.role != 1) {
             return navigate('/');
         }
-    
+
         if (coordinator && userState.user?.role != 2) {
             return navigate('/');
         }
@@ -25,8 +41,8 @@ function AuthProvider({ children, manager = false, coordinator = false, login=fa
         //     navigate(-1);
         //     return
         // }
-    },[userState,navigate])
-    
+    }, [navigate])
+
     return [children]
 }
 

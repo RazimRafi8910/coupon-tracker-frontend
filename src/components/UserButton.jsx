@@ -25,6 +25,7 @@ function UserButton() {
       const result = await response.json()
       if (result.success) {
         dispatch(userLogout())
+        localStorage.clear()
         navigate('/login');
       } else {
         navigate('/login')

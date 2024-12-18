@@ -44,13 +44,18 @@ function Login() {
         credentials: 'include',
         body: JSON.stringify(data)
       });
+
       const result = await response.json()
+
       if (!result.auth || !result.success) {
         setError(result.message);
         return
       }
+
       if (result.success) {
         let loginUser = result.responseUser
+        localStorage.setItem('username', loginUser.username)
+        localStorage.setItem('role',loginUser.role)
         dispatch(userLogin(loginUser))
         if (data.role == 3) {
           navigate('/manager')
