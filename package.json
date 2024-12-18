@@ -13,12 +13,15 @@
     "@hookform/resolvers": "^3.9.1",
     "@reduxjs/toolkit": "^2.5.0",
     "bootstrap": "^5.3.3",
+    "datatables.net-bs5": "^2.1.8",
+    "datatables.net-react": "^1.0.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.6",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
+    "react-toastify": "^10.0.6",
     "yup": "^1.5.0"
   },
   "devDependencies": {

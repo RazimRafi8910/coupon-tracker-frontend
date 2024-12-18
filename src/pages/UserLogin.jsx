@@ -1,15 +1,18 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from "react-redux";
-import {userLogin} from '../slice/userSlice'
+import { userLogin } from '../slice/userSlice'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../components/Loader'
 import * as yup from 'yup'
+import { FormCheck } from 'react-bootstrap';
+import { getBackendURL } from '../utils/backendAPI';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
-  password: yup.string().required()
+  password: yup.string().required(),
+  role: yup.number().required()
 })
 
 function Login() {
@@ -22,38 +25,42 @@ function Login() {
     defaultValues: {
       username: '',
       password: '',
+      role: 1
     }
   })
 
-  const backendURL = String(import.meta.env.VITE_BACKEND_URL)
-  const production = Number(import.meta.env.VITE_PRODUCTION)
-  console.log(production)
-  const api = production == 1 ? backendURL : 'http://localhost:3001'
-  console.log(api)
+  const api = getBackendURL()
+
   const onsubmit = async (data) => {
     setIsLoading(true)
+    
     try {
-      console.log(data)
       const response = await fetch(`${api}/login`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
         },
-        credentials:'include',
+        credentials: 'include',
         body: JSON.stringify(data)
       });
       const result = await response.json()
-      if (result.auth == false) {
+      if (!result.auth || !result.success) {
         setError(result.message);
         return
       }
-      dispatch(userLogin(result.responseUser))
-      //localStorage.setItem('token', result.token)
-      console.log("fsd")
-      if (result.auth) {
-        navigate('/')
+      if (result.success) {
+        let loginUser = result.responseUser
+        dispatch(userLogin(loginUser))
+        if (data.role == 3) {
+          navigate('/manager')
+        } else if (data.role == 2) {
+          navigate('/coordinator')
+        } else {
+          navigate('/')
+        }
         return
       }
+
     } catch (error) {
       console.log(error)
       setError(error.message)
@@ -64,11 +71,11 @@ function Login() {
 
   if (isLoading) {
     return (
-        <div className='' style={{ minHeight: '100vh', zIndex: '1' }}>
-            <Loader />
-        </div>
+      <div className='' style={{ minHeight: '100vh', zIndex: '1' }}>
+        <Loader />
+      </div>
     )
-}
+  }
 
   return (
     <>
@@ -86,15 +93,26 @@ function Login() {
                     <form onSubmit={handleSubmit(onsubmit)}>
                       <div className="form-outline mb-4">
                         <label className="form-label">Username</label>
-                        <input type="text" id="typeEmailX-2" {...register('username')} className="form-control form-control-lg" />
+                        <input type="text" id="typeEmailX-2" {...register('username')} className="form-control border-dark form-control-lg" />
                       </div>
 
                       <div className="form-outline mb-4">
                         <label className="form-label">Password</label>
-                        <input type="password" id="typePasswordX-2" {...register('password')} className="form-control form-control-lg" />
+                        <input type="password" id="typePasswordX-2" {...register('password')} className="form-control border-dark form-control-lg" />
                       </div>
 
-                    <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                      <div className="form-outline mb-4">
+                        <label className="m-0 mb-1 form-label d-block">Login as : </label>
+                        <hr className='m-0' />
+                        <FormCheck.Input inline={'true'} type='radio' value={1} id='role1' name='role' {...register('role')} className='border border-dark ms-3 me-1' />
+                        <FormCheck.Label inline={'true'} className=''>User</FormCheck.Label>
+                        <FormCheck.Input inline={'true'} type='radio' value={2} id='role2' name='role' {...register('role')} className='border border-dark ms-3 me-1' />
+                        <FormCheck.Label inline={'true'} className=''>Coordinator</FormCheck.Label>
+                        <FormCheck.Input inline={'true'} type='radio' value={3} id='role3' name='role' {...register('role')} className='border border-dark ms-3 me-1' />
+                        <FormCheck.Label inline={'true'} className=''>Manager</FormCheck.Label>
+                      </div>
+
+                      <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                     </form>
 
                   </div>

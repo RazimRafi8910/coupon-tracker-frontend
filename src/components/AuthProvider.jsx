@@ -1,27 +1,30 @@
-import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
-import Loader from "./Loader"
 
-function AuthProvider({ children, manager = false }) {
+function AuthProvider({ children, manager = false, coordinator = false, login=false}) {
     const navigate = useNavigate()
     const userState = useSelector((state) => state.userReducer)
 
-    
-    
+    console.log(userState)
     useEffect(() => {
-        if (manager == true) {
-            if (userState.user.role.includes("manager")) {
-                navigate('/manager')
-            } else {
-                navigate('/')
-            }
+
+        if (userState.user == null) {
+            return navigate('/login')
         }
-        if (userState.loginStatus) {
-            navigate('/')
-        } else {
-            navigate('/user/login')
+    
+        if (manager && userState.user?.role != 1) {
+            return navigate('/');
         }
+    
+        if (coordinator && userState.user?.role != 2) {
+            return navigate('/');
+        }
+
+        // if (userState.user !== null && login) {
+        //     navigate(-1);
+        //     return
+        // }
     },[userState,navigate])
     
     return [children]
