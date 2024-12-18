@@ -29,6 +29,7 @@ function Login() {
     }
   })
 
+  // gets the backend url for production and local
   const api = getBackendURL()
 
   const onsubmit = async (data) => {

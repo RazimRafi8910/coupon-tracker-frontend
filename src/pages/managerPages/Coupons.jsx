@@ -5,15 +5,19 @@ import { useState } from 'react';
 import Loader from '../../components/Loader'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Link } from 'react-router-dom';
+import { getBackendURL } from '../../utils/backendAPI';
 
 const schema = yup.object().shape({
     bookId: yup.number().required(),
     leaveStart: yup.number().required(),
     leaveEnd: yup.number().required()
 })
+
+// gets the backend url for production and local
+  const api = getBackendURL()
 
 function Coupons() {
     const [show, setShow] = useState(false);
@@ -25,7 +29,7 @@ function Coupons() {
         async function getInitailData() {
             setLoading(true)
             try {
-                const response = await fetch('http://localhost:3001/manager/coupon', {
+                const response = await fetch(`${api}/manager/coupon`, {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json',
@@ -55,7 +59,7 @@ function Coupons() {
     const addCoupon = async (data) => {
         setLoading(true)
         try {
-            const response = await fetch('http://localhost:3001/manager/coupon/add', {
+            const response = await fetch(`${api}/manager/coupon/add`, {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -89,7 +93,7 @@ function Coupons() {
         setLoading(true)
         const searchNo = searchRef.current.value
         try {
-            const response = await fetch(`http://localhost:3001/manager/coupon/${searchNo}`, {
+            const response = await fetch(`${api}/manager/coupon/${searchNo}`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
