@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import Dropdown from "react-bootstrap/Dropdown"
 import { userLogout } from '../slice/userSlice';
 import { Link,useNavigate } from 'react-router-dom';
+import { getBackendURL } from '../utils/backendAPI';
+
+const API = getBackendURL()
 
 function UserButton() {
   const dispatch = useDispatch()
@@ -12,7 +15,7 @@ function UserButton() {
   const handleLogout = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch(`http://localhost:3001/logout`, {
+      const response = await fetch(`${API}/logout`, {
         method: 'GET',
         headers: {
           'Content-type':'application/json'
