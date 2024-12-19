@@ -81,7 +81,7 @@ function Students() {
 
     return (
         <>
-            <div className="conatiner">
+            <div className="container">
                 <Modal centered show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Student</Modal.Title>
