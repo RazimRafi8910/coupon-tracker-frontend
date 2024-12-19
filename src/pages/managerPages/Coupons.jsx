@@ -5,8 +5,8 @@ import { useState } from 'react';
 import Loader from '../../components/Loader'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom';
 import { getBackendURL } from '../../utils/backendAPI';
 
@@ -24,7 +24,6 @@ function Coupons() {
     const [loading, setLoading] = useState(false);
     const [coupons, setCoupons] = useState([]);
     const searchRef = useRef()
-    const token = localStorage.getItem('token')
 
     useEffect(() => {
         async function getInitailData() {
@@ -34,7 +33,6 @@ function Coupons() {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json',
-                        'Authorization': `Bearer ${token}`
                     },
                     credentials: 'include',
                 })
@@ -65,7 +63,6 @@ function Coupons() {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${token}`
                 },
                 credentials: 'include',
                 body: JSON.stringify(data)
@@ -100,7 +97,6 @@ function Coupons() {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${token}`
                 },
                 credentials: 'include'
             });

@@ -9,7 +9,6 @@ function AuthProvider({ children, manager = false, coordinator = false, login = 
     const dispatch = useDispatch()
 
     useEffect(() => {
-
         
             const username = localStorage.getItem('username')
             if (username) {
@@ -19,7 +18,6 @@ function AuthProvider({ children, manager = false, coordinator = false, login = 
                 }
                 dispatch(userLogin(user))
             }
-        console.log(userState)
 
         if (!username) {
             return navigate('/login')

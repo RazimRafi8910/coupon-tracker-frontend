@@ -7,7 +7,6 @@ function useFetch(url, method, options) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const token = localStorage.getItem('token');
 
     useEffect(() => {
         async function getData() {
@@ -17,12 +16,10 @@ function useFetch(url, method, options) {
                     method: method || "GET",
                     headers: {
                         'Content-type': 'application/json',
-                        'Authorization': `Bearer ${token}`
                     },
                     credentials: 'include'
                 });
                 const result = await response.json();
-                console.log(result)
                 if (result.success) {
                     setData(result.data)
                 } else {

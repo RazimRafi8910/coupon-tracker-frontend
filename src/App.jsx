@@ -13,6 +13,7 @@ import { useEffect } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 import StudentDetails from "./pages/managerPages/StudentDetails"
+import Coordinator from "./pages/managerPages/Coordinator"
 
 function App() {
   const dispatch = useDispatch()
@@ -55,7 +56,7 @@ function App() {
   }, [])
   return (
     <>
-      <div className="app" style={{ backgroundColor: '#dfdfdf' }}>
+      <div className="app" style={{ backgroundColor: '#f3f3f3' }}>
         <Router>
           <Navbar />
           <Routes>
@@ -65,6 +66,7 @@ function App() {
             <Route path="/manager/coupons" element={<Coupons />} />
             <Route path="/manager/students" element={<Students />} />
             <Route path="/manager/student/:studentid" element={<StudentDetails />} />
+            <Route path="/manager/coordinator" element={<Coordinator />} />
             <Route path="/coordinator" element={(<AuthProvider><CoordinatorHomePage /></AuthProvider>)} />
           </Routes>
           <ToastContainer />
