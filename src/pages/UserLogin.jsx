@@ -54,6 +54,7 @@ function Login() {
 
       if (result.success) {
         let loginUser = result.responseUser
+        localStorage.setItem('token',result.token)
         localStorage.setItem('username', loginUser.username)
         localStorage.setItem('role',loginUser.role)
         dispatch(userLogin(loginUser))

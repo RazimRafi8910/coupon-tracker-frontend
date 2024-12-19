@@ -12,13 +12,16 @@ function UserButton() {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const userState = useSelector((state) => state.userReducer);
+  const token = localStorage.getItem('token')
+
   const handleLogout = async () => {
     try {
       setIsLoading(true)
       const response = await fetch(`${API}/logout`, {
         method: 'GET',
         headers: {
-          'Content-type':'application/json'
+          'Content-type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials:'include'
       })

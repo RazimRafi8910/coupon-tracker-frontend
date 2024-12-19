@@ -24,6 +24,7 @@ function Coupons() {
     const [loading, setLoading] = useState(false);
     const [coupons, setCoupons] = useState([]);
     const searchRef = useRef()
+    const token = localStorage.getItem('token')
 
     useEffect(() => {
         async function getInitailData() {
@@ -33,6 +34,7 @@ function Coupons() {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     credentials: 'include',
                 })
@@ -62,7 +64,8 @@ function Coupons() {
             const response = await fetch(`${api}/manager/coupon/add`, {
                 method: "POST",
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 credentials: 'include',
                 body: JSON.stringify(data)
@@ -97,6 +100,7 @@ function Coupons() {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 credentials: 'include'
             });
