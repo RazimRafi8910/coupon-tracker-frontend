@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useFetch from '../../utils/useFetch'
 import { Link } from 'react-router-dom'
@@ -30,9 +30,9 @@ function StudentDetails() {
     const managerId = localStorage.getItem('id')
 
     const { register, handleSubmit, formState: { errors } } = useForm({
-            resolver: yupResolver(schema)
+        resolver: yupResolver(schema)
     })
-    
+
     const assginCoupon = async (data) => {
         setIsLoading(true)
         try {
@@ -42,7 +42,7 @@ function StudentDetails() {
                     'Content-type': 'application/json',
                 },
                 credentials: 'include',
-                body:JSON.stringify(data)
+                body: JSON.stringify(data)
             })
             const result = await response.json()
             if (result.success) {
@@ -64,7 +64,7 @@ function StudentDetails() {
         } finally {
             setIsLoading(false)
         }
-    } 
+    }
 
     const handleClose = async () => {
         setCoupons(null)
@@ -76,21 +76,21 @@ function StudentDetails() {
 
     if (loading) {
         return (
-            <><Loader/></>
+            <><Loader /></>
         )
     }
 
     if (error) {
         toast.error(error, {
-            position:'top-center'
+            position: 'top-center'
         }
         )
     }
 
-  return (
-      <>
-          <div className="container">
-          <Modal centered show={show} onHide={handleClose}>
+    return (
+        <>
+            <div className="container">
+                <Modal centered show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Assign Coupon</Modal.Title>
                     </Modal.Header>
@@ -99,32 +99,32 @@ function StudentDetails() {
                             <div className="row mb-3">
                                 <div className="col-sm-12 d-flex">
                                     <label className="col-form-label col-3">Book No :</label>
-                                  <input type="number" {...register('bookNo')}  className="border-secondary form-control" id="bookid" />
-                                  {/* <button className='btn btn-outline-dark ms-1' type='button' onClick={handleSearch}>Search</button> */}
-                              </div>
-                              {errors.bookNo && <p className='text-danger'>{errors.bookNo.message}</p>}
-                          </div>
-                          <div className="row mb-2">
-                              <div className="col-sm-12 d-flex">
-                                  {coupons && 
-                                      <div className='d-flex'>
-                                      <p >Stating Leaves : <strong> { coupons.leaveStart }</strong> </p>
-                                          <p className='ms-2'>Status :</p>{ coupons.status == 0 ? <p className='text-success'>Not Assigend</p> :<p className='text-danger fw-bold'>Assigend</p>  }
-                                      </div>
-                                  }
-                              </div>
-                          </div>
+                                    <input type="number" {...register('bookNo')} className="border-secondary form-control" id="bookid" />
+                                    {/* <button className='btn btn-outline-dark ms-1' type='button' onClick={handleSearch}>Search</button> */}
+                                </div>
+                                {errors.bookNo && <p className='text-danger'>{errors.bookNo.message}</p>}
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col-sm-12 d-flex">
+                                    {coupons &&
+                                        <div className='d-flex'>
+                                            <p >Stating Leaves : <strong> {coupons.leaveStart}</strong> </p>
+                                            <p className='ms-2'>Status :</p>{coupons.status == 0 ? <p className='text-success'>Not Assigend</p> : <p className='text-danger fw-bold'>Assigend</p>}
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                             <div className="row mb-3">
-                              <div className="col-sm-12 d-flex">
-                              <label className="col-form-label col-3">Student Id :</label>
+                                <div className="col-sm-12 d-flex">
+                                    <label className="col-form-label col-3">Student Id :</label>
                                     <input type="number" {...register("studentId")} className="form-control border-secondary" value={data.studentId} id="start" />
                                 </div>
                             </div>
                             <div className="row mb-3 d-none">
                                 <div className="col-sm-12 d-flex">
-                                  <input type="text" {...register("issuedBy")} className="form-control border-secondary d-hidden"
-                                      value={ managerId } id="end" />
-                                  <input type='number' {...register("type")} className='form-control border-secondary d-hidden' value={ 1 } />
+                                    <input type="text" {...register("issuedBy")} className="form-control border-secondary d-hidden"
+                                        value={managerId} id="end" />
+                                    <input type='number' {...register("type")} className='form-control border-secondary d-hidden' value={1} />
                                 </div>
                             </div>
                         </Modal.Body>
@@ -134,45 +134,43 @@ function StudentDetails() {
                         </Modal.Footer>
                     </form>
                 </Modal>
-          <ol className="breadcrumb mx-3">
+                <ol className="breadcrumb mx-3">
                     <li className="breadcrumb-item"><Link to={'/manager'}>manager</Link></li>
                     <li className="breadcrumb-item active"><Link to={'/manager/students'}>Students</Link></li>
                     <li className="breadcrumb-item active" aria-current="page">Student details</li>
                 </ol>
-              <div className="row mx-2">
-                  
-                      <h2>Student details</h2>
-                      
-                  <hr />
-              </div>
-              <div className="row mx-3">
-                  <p>Reg No : <strong>51/bca/2024</strong> </p>
-                  <div className='col'>
-                      <p>Name : <strong>{data.name}</strong> </p>
-                  <p>Student Id : <strong> {data.studentId} </strong> </p>
-                  </div>
-                  <div className="col ms-3">
-                      <p>Class : <strong>{ data.class }</strong> </p>
-                      <p>Batch : <strong>{ data.batch }</strong> </p>
-                  </div>
-                  <p>Phone : <strong>{ data.phone}</strong> </p>
-                  <p>Email : <strong> { data.email } </strong> </p>
-                  <p>Coupons Assgined: <strong>{ data.assignedCoupons }</strong> </p>
-              </div>
-              <div className="row mx-3 mt-2">
-                  <div className='d-flex justify-content-between'>
-                      <h4>Coupon Register</h4>
-                      <button className='btn btn-outline-dark mb-1' onClick={handleShow}>Assign</button>
-              </div>
-                  
-                  <hr />
-              </div>
-              <div className="row mx-2">
-                  {!data.register ? <p className='text-center w-100'>No register found</p> : <UserCouponTable data={data.register} />}
-              </div>
-          </div>
-      </>
-  )
+                <div className="row mx-2">
+                    <h2>Student details</h2>
+                    <hr />
+                </div>
+                <div className="row mx-3">
+                    <p>Reg No : <strong>51/bca/2024</strong> </p>
+                    <div className='col'>
+                        <p>Name : <strong>{data.name}</strong> </p>
+                        <p>Student Id : <strong> {data.studentId} </strong> </p>
+                    </div>
+                    <div className="col ms-3">
+                        <p>Class : <strong>{data.class}</strong> </p>
+                        <p>Batch : <strong>{data.batch}</strong> </p>
+                    </div>
+                    <p>Phone : <strong>{data.phone}</strong> </p>
+                    <p>Email : <strong> {data.email} </strong> </p>
+                    <p>Coupons Assgined: <strong>{data.assignedCoupons}</strong> </p>
+                </div>
+                <div className="row mx-3 mt-2">
+                    <div className='d-flex justify-content-between'>
+                        <h4>Coupon Register</h4>
+                        <button className='btn btn-outline-dark mb-1' onClick={handleShow}>Assign</button>
+                    </div>
+
+                    <hr />
+                </div>
+                <div className="row mx-2">
+                    {!data.register ? <p className='text-center w-100'>No register found</p> : <UserCouponTable data={data.register} />}
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default StudentDetails

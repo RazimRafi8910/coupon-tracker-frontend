@@ -7,51 +7,17 @@ import CoordinatorHomePage from "./pages/CoordinatorHomePage"
 import Students from "./pages/managerPages/Students"
 import Coupons from "./pages/managerPages/Coupons"
 import AuthProvider from './components/AuthProvider'
-import { useSelector, useDispatch } from "react-redux"
-import { userLogin, userLogout } from "./slice/userSlice"
+import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 import StudentDetails from "./pages/managerPages/StudentDetails"
 import Coordinator from "./pages/managerPages/Coordinator"
+import CoordinatorDetail from "./pages/managerPages/CoordinatorDetail"
 
 function App() {
-  const dispatch = useDispatch()
   const userState = useSelector((state) => state.userReducer)
   useEffect(() => {
-    // async function getUser() {
-    //   try {
-    //     const response = await fetch(`http://localhost:3001/get-user`, {
-    //       method: "GET",
-    //       headers: {
-    //         'Content-type': 'application/json'
-    //       },
-    //       credentials: 'include'
-    //     });
-    //     const result = await response.json()
-    //     if (result.success) {
-    //       dispatch(userLogin(result.responseUser));
-    //     } else {
-    //       dispatch(userLogout());
-    //     }
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // if (userState.user == null) {
-    //   getUser()
-    // }
-    // console.log(userState)
-
-    // const username = localStorage.getItem('username');
-    // if (username) {
-    //   const user = {
-    //     username,
-    //     role: localStorage.getItem('role')
-    //   }
-    //   dispatch(userLogin(user));
-    // }
-
     console.log(userState)
   }, [])
   return (
@@ -67,6 +33,7 @@ function App() {
             <Route path="/manager/students" element={<Students />} />
             <Route path="/manager/student/:studentid" element={<StudentDetails />} />
             <Route path="/manager/coordinator" element={<Coordinator />} />
+            <Route path="/manager/coordinator/:coordinatorId" element={<CoordinatorDetail/>}/>
             <Route path="/coordinator" element={(<AuthProvider><CoordinatorHomePage /></AuthProvider>)} />
           </Routes>
           <ToastContainer />

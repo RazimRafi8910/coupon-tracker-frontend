@@ -1,12 +1,28 @@
 import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import useFetch from '../../utils/useFetch'
+import Loader from '../../components/Loader'
 
 
 function Coordinator() {
     const coordinatorSearchRef = useRef()
+    const { data, error, loading } = useFetch('/manager/coordinator');
 
     const handleSearch = async () => {
         
+    }
+
+    if (loading) {
+        return (
+            <Loader/>
+        )
+    }
+
+    if (error) {
+        toast.error(error || "Failed fetch data", {
+            position: "top-center"
+        })
     }
   return (
       <>
@@ -23,14 +39,14 @@ function Coordinator() {
               <div className='d-flex mb-3'>
                         <input type="text" className="form-control" ref={coordinatorSearchRef} placeholder="Coordinator name" aria-label="First name" />
                         <button className=' ms-1 btn btn-outline-dark' onClick={handleSearch}>search</button>
-                        <button className='ms-1 btn btn-dark'>Add</button>
+                        {/* <button className='ms-1 btn btn-dark'>Add</button> */}
                     </div>
               </div>
               <div className="row mx-2">
                   <table className='table text-center table-responsive-sm'>
                   <thead>
                             <tr>
-                                <th scope="col">id</th>
+                                <th scope="col">Id</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Assigned Coupons</th>
                                 <th scope="col"></th>
@@ -38,13 +54,15 @@ function Coordinator() {
                             </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <th>1</th>
-                              <td>razim</td>
-                              <th>10</th>
-                              <th></th>
-                              <th><Link className='btn btn-outline-dark' to={'/manager/coordinator/view'}>view</Link></th>
-                          </tr>
+                          {data.map((item, index) => (
+                              <tr key={index}>
+                                  <td>{ item.studentId }</td>
+                                  <td>{ item.name }</td>
+                                  <td>{item.assignedCoupons}</td>
+                                  <td>{}</td>
+                                  <th><Link className='btn btn-outline-dark' to={`/manager/coordinator/${item.studentId}`}>view</Link></th>
+                              </tr>
+                          )) }
                       </tbody>
                   </table>
               </div>
