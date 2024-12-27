@@ -23,11 +23,10 @@ const API = getBackendURL()
 
 function StudentDetails() {
     const [show, setShow] = useState(false);
-    const [isLoading, setIsLoading] = useState(false)
-    const [coupons, setCoupons] = useState();
-    const { studentid } = useParams()
-    const { data, loading, error } = useFetch(`/manager/student/${studentid}`)
-    const managerId = localStorage.getItem('id')
+    const [isLoading, setIsLoading] = useState(false);
+    const { studentid } = useParams();
+    const { data, loading, error } = useFetch(`/manager/student/${studentid}`);
+    const managerId = localStorage.getItem('id');
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
@@ -44,7 +43,7 @@ function StudentDetails() {
                 credentials: 'include',
                 body: JSON.stringify(data)
             })
-            const result = await response.json()
+            const result = await response.json();
             if (result.success) {
                 toast.success(result.message, {
                     position: 'top-center'
@@ -67,7 +66,6 @@ function StudentDetails() {
     }
 
     const handleClose = async () => {
-        setCoupons(null)
         setShow(false)
     }
 
@@ -103,16 +101,6 @@ function StudentDetails() {
                                     {/* <button className='btn btn-outline-dark ms-1' type='button' onClick={handleSearch}>Search</button> */}
                                 </div>
                                 {errors.bookNo && <p className='text-danger'>{errors.bookNo.message}</p>}
-                            </div>
-                            <div className="row mb-2">
-                                <div className="col-sm-12 d-flex">
-                                    {coupons &&
-                                        <div className='d-flex'>
-                                            <p >Stating Leaves : <strong> {coupons.leaveStart}</strong> </p>
-                                            <p className='ms-2'>Status :</p>{coupons.status == 0 ? <p className='text-success'>Not Assigend</p> : <p className='text-danger fw-bold'>Assigend</p>}
-                                        </div>
-                                    }
-                                </div>
                             </div>
                             <div className="row mb-3">
                                 <div className="col-sm-12 d-flex">

@@ -179,7 +179,7 @@ function Coupons() {
                 </div>
                 <div className='row mx-2'>
                     <table className="table table-responsive-sm">
-                        <thead>
+                        <thead className='text-center'>
                             <tr>
                                 {/* <th scope="col">SI</th> */}
                                 <th scope="col">Book No</th>
@@ -188,17 +188,31 @@ function Coupons() {
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='text-center'>
                             {coupons && !loading &&
-                                coupons.map((item, index) => (
-                                    <tr key={index}>
+                                coupons.map((item, index) => {
+                                    let status = ''
+                                    if (item.status == 0) {
+                                        status = 'not assigned'
+                                      } else if(item.status == 1){ 
+                                        status = 'assigned '
+                                      } else if (item.status == 2) { 
+                                          status = 'Pending'
+                                    } else if (item.status == 3) {
+                                        status = 'completed'
+                                      } else if (item.status == 4) { 
+                                        status = 'recived'
+                                      }
+                                    return (
+                                        <tr key={index}>
                                         {/* <th scope="row">{ index + 1 }</th> */}
                                         <td>{item.bookId}</td>
                                         <td>{item.leaveStart}</td>
                                         <td>{item.leaveEnd}</td>
-                                        <td>{item.status == 0 ? "not assigned" : "assigned"}</td>
+                                        <td>{status}</td>
                                     </tr>
-                                ))
+                                    )
+                                })
                             }
                         </tbody>
                     </table>

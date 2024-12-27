@@ -1,5 +1,4 @@
 
-
 export const getBackendURL = () => {
     const productionAPI = String(import.meta.env.VITE_BACKEND_URL)
     const PRODUCTION = Number(import.meta.env.VITE_PRODUCTION)
