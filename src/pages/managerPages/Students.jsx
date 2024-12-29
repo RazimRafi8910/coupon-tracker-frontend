@@ -28,7 +28,7 @@ function Students() {
     const studentSearchRef = useRef()
     const [show, setShow] = useState(false)
     const [isLoading,setIsLoading] = useState(false)
-    const { data, loading, error } = useFetch('/manager/students')
+    const { data, setData, loading, error } = useFetch('/manager/students')
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -88,13 +88,15 @@ function Students() {
             })
 
             if (!response.ok) {
+                setData(data)
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const result = await response.json();
 
             if (result.success) {
-                console.log(result.data)
+                console.log(result.data);
+                setData(result.data)
             } else {
                 toast.error(result.message || "An error occurred", {
                     position: 'top-center'

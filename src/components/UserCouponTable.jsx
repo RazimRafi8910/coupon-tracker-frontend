@@ -5,7 +5,7 @@ function UserCouponTable({ data }) {
   const [total, setTotal] = useState(0);
   const [totalCommision, setTotalCommision] = useState(0);
   const [totalDueAmount, setTotalDueAmount] = useState(0);
-
+  
   useEffect(() => {
     // Calculate totals when data changes
     if (data) {
@@ -36,7 +36,7 @@ function UserCouponTable({ data }) {
       </thead>
       <tbody>
 
-        {data?.map((item, index) => {
+        {data && data?.map((item, index) => {
           const due = 2500 - item.commision
           let date = new Date(item.issuedDate).toLocaleDateString()
           let status

@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import CouponDetailsTable from "../CouponDetailsTable";
 
-function UserDetailsCard({ data }) {
+function UserDetailsCard({ data,coordinator = false }) {
   return (
     <>
       <Card className="px-0" style={{ backgroundColor: "#e8e8e8" }}>
@@ -21,9 +21,9 @@ function UserDetailsCard({ data }) {
               <Card.Text className="fw-bold">
                 {" "}
                 <span className="text-muted" style={{ fontWeight: "500" }}>
-                  Reg No : <br />{" "}
-                </span>
-                {data.regNo}
+                  Id : <br />{" "}
+                </span>{" "}
+                {data.studentId}
               </Card.Text>
               <Card.Text className="fw-bold">
                 <span className="text-muted" style={{ fontWeight: "500" }}>
@@ -38,15 +38,25 @@ function UserDetailsCard({ data }) {
                 </span>{" "}
                 {data.phone}
               </Card.Text>
-            </div>
-            <div className="col">
-              <Card.Text className="fw-bold">
+              {!coordinator && 
+                <Card.Text className="fw-bold">
                 {" "}
                 <span className="text-muted" style={{ fontWeight: "500" }}>
-                  Id : <br />{" "}
+                  Assigned Coupon :{" "}
                 </span>{" "}
-                {data.studentId}
+                {data.assignedCoupons}
               </Card.Text>
+               }
+            </div>
+            <div className="col">
+            <Card.Text className="fw-bold">
+                {" "}
+                <span className="text-muted" style={{ fontWeight: "500" }}>
+                  Reg No : <br />{" "}
+                </span>
+                {data.regNo}
+              </Card.Text>
+              
               <Card.Text className="fw-bold">
                 {" "}
                 <span className="text-muted" style={{ fontWeight: "500" }}>
@@ -63,11 +73,16 @@ function UserDetailsCard({ data }) {
               </Card.Text>
             </div>
           </div>
-                  {/* <Button variant="primary">Go somewhere</Button> */}
-                  <Card.Header as={"h6"}>Coupon</Card.Header>
+          {/* <Button variant="primary">Go somewhere</Button> */}
+          {coordinator && 
+            (<>
+              <Card.Header as={"h6"}>Coupon</Card.Header>
                   <div className="row px-2">
                       <CouponDetailsTable data={data.coordinatorRegister}/>
-                  </div>
+              </div>
+              </>)
+          }
+                  
         </Card.Body>
       </Card>
     </>

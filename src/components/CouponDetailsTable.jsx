@@ -67,34 +67,38 @@ function CouponDetailsTable({ data }) {
   };
   return (
     <>
-      <div className="col-lg-6 mt-1">
-        <Table className="border rounded" responsive>
-          <thead className="text-center">
+      <div className="col-lg-6 mt-1 rounded-3">
+        <Table className="rounded-3 rounded" responsive>
+          <thead className="text-center"> 
             <tr>
               <th></th>
-              <th>Amount</th>
+              <th colSpan={1}></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Coupons Completed</td>
-              <td className="text-center">30</td>
-            </tr>
-            <tr>
+          <tr>
               <td>Coupons Assigned</td>
               <td className="text-center">{data && data.couponsAssigend?.length}</td>
             </tr>
             <tr>
+              <td>Coupons Completed</td>
+              <td className="text-center">0</td>
+            </tr>
+            <tr>
+              <td>Coupons Returned</td>
+              <td className="text-center">0</td>
+            </tr>
+            <tr>
               <td>Due Amount</td>
-              <td className="text-center">Rs {dueAmount}</td>
+              <td className="text-center text-nowrap">Rs {dueAmount}</td>
             </tr>
             <tr>
               <td>Collected Amount</td>
-              <td className="text-center">Rs {data?.collectedAmount}</td>
+              <td className="text-center text-nowrap">Rs {data?.collectedAmount}</td>
             </tr>
             <tr>
               <td>Recived Amount</td>
-              <td className="text-center">
+              <td className="text-center text-nowrap">
                 Rs {data?.recivedAmount} <br />{" "}
               </td>
               {/* <td className="text-center">
@@ -102,7 +106,9 @@ function CouponDetailsTable({ data }) {
               </td> */}
             </tr>
           </tbody>
-          <div className="row ">
+          
+        </Table>
+        <div className="row ">
             <p className="mb-0 mx-2">Update Reviced amount</p>
             <div className="d-flex">
               <input
@@ -113,7 +119,7 @@ function CouponDetailsTable({ data }) {
                 className="form-control"
               />
               {loading ? (
-                <button className="btn btn-light py-1">Updating...</button>
+                <button className="btn btn-secondary py-1">Updating...</button>
               ) : (
                 <button className="btn btn-dark py-1" onClick={handleUpdate}>
                   Update
@@ -121,7 +127,6 @@ function CouponDetailsTable({ data }) {
               )}
             </div>
           </div>
-        </Table>
       </div>
     </>
   );

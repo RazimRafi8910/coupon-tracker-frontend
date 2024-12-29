@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { getBackendURL } from '../../utils/backendAPI'
+import UserDetailsCard from '../../components/cards/UserDetailsCard'
 
 const schema = yup.object().shape({
     bookNo: yup.number().required(),
@@ -65,12 +66,8 @@ function StudentDetails() {
         }
     }
 
-    const handleClose = async () => {
-        setShow(false)
-    }
-
-
-    const handleShow = () => setShow(true);
+    const handleClose = async () => setShow(false)
+    const handleShow = () => setShow(true)
 
     if (loading) {
         return (
@@ -132,7 +129,8 @@ function StudentDetails() {
                     <hr />
                 </div>
                 <div className="row mx-3">
-                    <p>Reg No : <strong>51/bca/2024</strong> </p>
+                    <UserDetailsCard data={data} />
+                    {/* <p>Reg No : <strong>51/bca/2024</strong> </p>
                     <div className='col'>
                         <p>Name : <strong>{data.name}</strong> </p>
                         <p>Student Id : <strong> {data.studentId} </strong> </p>
@@ -143,12 +141,12 @@ function StudentDetails() {
                     </div>
                     <p>Phone : <strong>{data.phone}</strong> </p>
                     <p>Email : <strong> {data.email} </strong> </p>
-                    <p>Coupons Assgined: <strong>{data.assignedCoupons}</strong> </p>
+                    <p>Coupons Assgined: <strong>{data.assignedCoupons}</strong> </p> */}
                 </div>
                 <div className="row mx-3 mt-2">
                     <div className='d-flex justify-content-between'>
                         <h4>Coupon Register</h4>
-                        <button className='btn btn-outline-dark mb-1' onClick={handleShow}>Assign</button>
+                        {/* <button className='btn btn-outline-dark mb-1' onClick={handleShow}>Assign</button> */}
                     </div>
 
                     <hr />

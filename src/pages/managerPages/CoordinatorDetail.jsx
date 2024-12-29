@@ -116,7 +116,7 @@ function CoordinatorDetail() {
                 ) : (
                     <>
                                 <div className="row mx-3">
-                                    <UserDetailsCard data={data}/>
+                                    <UserDetailsCard coordinator={true} data={data}/>
                                 </div>
 
                         {/* Coupon Register */}
@@ -127,7 +127,7 @@ function CoordinatorDetail() {
                             </div>
                             <hr />
                                 </div>
-                        <div className="row mx-2">
+                        <div className="row mx-2 mb-4">
                             {data.coordinatorRegister && data.coordinatorRegister.couponsAssigend.length > 0 ? (
                                 <CoordinatorTable data={data.coordinatorRegister.couponsAssigend} />
                             ) : (

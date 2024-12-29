@@ -7,9 +7,9 @@ function ManagerCard({label,title,link = false,linkTo}) {
       <>
           <div className='col-12 col-lg-4 px-2 mt-2'>
         <Card className='mx-3 shadow-lg' style={{ borderRadius: '6px' }}>
-          <Card.Body className='d-flex justify-content-between align-items-center text-center mx-4'>
+          <Card.Body className='d-flex justify-content-between align-items-center text-center mx-3'>
                       <div>
-                      <Card.Subtitle className="mb-2 text-muted text-start">{label}</Card.Subtitle>
+                      <Card.Subtitle style={{fontSize:"15px"}} className="mb-2 text-muted text-start">{label}</Card.Subtitle>
                       <Card.Title className='fs-1 text-start fw-bold' >{title}</Card.Title>
                       </div>
                       {link && <Link to={linkTo} className='btn btn-outline-dark'>View</Link>}

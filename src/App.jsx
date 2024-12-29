@@ -7,19 +7,14 @@ import CoordinatorHomePage from "./pages/CoordinatorHomePage"
 import Students from "./pages/managerPages/Students"
 import Coupons from "./pages/managerPages/Coupons"
 import AuthProvider from './components/AuthProvider'
-import { useSelector } from "react-redux"
-import { useEffect } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 import StudentDetails from "./pages/managerPages/StudentDetails"
 import Coordinator from "./pages/managerPages/Coordinator"
 import CoordinatorDetail from "./pages/managerPages/CoordinatorDetail"
+import CouponRegister from "./pages/managerPages/CouponRegister"
 
 function App() {
-  const userState = useSelector((state) => state.userReducer)
-  useEffect(() => {
-    console.log(userState)
-  }, [])
   return (
     <>
       <div className="app" style={{ backgroundColor: '#f3f3f3' }}>
@@ -33,7 +28,8 @@ function App() {
             <Route path="/manager/students" element={<Students />} />
             <Route path="/manager/student/:studentid" element={<StudentDetails />} />
             <Route path="/manager/coordinator" element={<Coordinator />} />
-            <Route path="/manager/coordinator/:coordinatorId" element={<CoordinatorDetail/>}/>
+            <Route path="/manager/coordinator/:coordinatorId" element={<CoordinatorDetail />} />
+            <Route path="/manager/register" element={(<AuthProvider><CouponRegister/></AuthProvider>)} />
             <Route path="/coordinator" element={(<AuthProvider><CoordinatorHomePage /></AuthProvider>)} />
           </Routes>
           <ToastContainer />

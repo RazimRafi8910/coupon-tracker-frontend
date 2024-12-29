@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef,useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import useFetch from '../../utils/useFetch'
@@ -8,9 +8,18 @@ import Loader from '../../components/Loader'
 function Coordinator() {
     const coordinatorSearchRef = useRef()
     const { data, error, loading } = useFetch('/manager/coordinator');
+    const [isLoading, setLoading] = useState(false);
 
     const handleSearch = async () => {
-        
+        setLoading(true);
+        try {
+            
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message || "falied to Search", {
+                position:'top-center'
+            })
+        }
     }
 
     if (loading) {
@@ -38,7 +47,7 @@ function Coordinator() {
               <div className="row">
               <div className='d-flex mb-3'>
                         <input type="text" className="form-control" ref={coordinatorSearchRef} placeholder="Coordinator name" aria-label="First name" />
-                        <button className=' ms-1 btn btn-outline-dark' onClick={handleSearch}>search</button>
+                        { isLoading ? <p className='mb-0 mt-2'>Searching..</p> : <button className=' ms-1 btn btn-outline-dark' onClick={handleSearch}>search</button>  }
                         {/* <button className='ms-1 btn btn-dark'>Add</button> */}
                     </div>
               </div>
