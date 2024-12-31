@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar"
 import UserHomePage from "./pages/UserHomePage"
 import Login from "./pages/UserLogin"
@@ -7,11 +9,10 @@ import CoordinatorHomePage from "./pages/CoordinatorHomePage"
 import Students from "./pages/managerPages/Students"
 import Coupons from "./pages/managerPages/Coupons"
 import AuthProvider from './components/AuthProvider'
-import { ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css";
 import StudentDetails from "./pages/managerPages/StudentDetails"
 import Coordinator from "./pages/managerPages/Coordinator"
 import CoordinatorDetail from "./pages/managerPages/CoordinatorDetail"
+import CouponsPage from './pages/coordinatorPages/CouponsPage'
 import CouponRegister from "./pages/managerPages/CouponRegister"
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path="/manager/coordinator/:coordinatorId" element={<CoordinatorDetail />} />
             <Route path="/manager/register" element={(<AuthProvider><CouponRegister/></AuthProvider>)} />
             <Route path="/coordinator" element={(<AuthProvider><CoordinatorHomePage /></AuthProvider>)} />
+            <Route path="/coordinator/coupons" element={(<AuthProvider> <CouponsPage/> </AuthProvider>)} />
           </Routes>
           <ToastContainer />
         </Router>

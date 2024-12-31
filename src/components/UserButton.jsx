@@ -68,12 +68,7 @@ function UserButton() {
               LogOut{" "}
             </Dropdown.Item>
             }
-            
-            {userState.user?.role == 2 &&
-              <Dropdown.Item className="text-danger fw-bold">
-                <Link to={'/coordinator'}>Coordinator</Link>
-              </Dropdown.Item>
-            }
+
           </Dropdown.Menu>
         </Dropdown>
       </div>
